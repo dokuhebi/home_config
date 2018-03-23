@@ -13,4 +13,8 @@
       format: gz
       exclude_path:
         - "{{ plexDatabase }}/Cache"
+    register: result
 
+  - name: debug
+    debug: 
+      var: result
