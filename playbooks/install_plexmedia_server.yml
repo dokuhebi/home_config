@@ -1,0 +1,7 @@
+---
+
+- hosts: plex
+  remote_user: root
+  roles:
+  - ansible-role-sonarr
+
