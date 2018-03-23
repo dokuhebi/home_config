@@ -1,0 +1,16 @@
+---
+
+- hosts: plex
+  remote_user: root
+  vars:
+    plexDatabase: "/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/"
+    backupDirectory: "/mnt/wd/plex/backups"
+  tasks:
+  - name: backup plex database
+    archive:
+      path: "{{ plexDatabase }}"
+      dest: "{{ backupDirectory }}/plex-backup.{{ ansible_date_time.epoch }}.tgz"
+      format: gz
+      exclude_path:
+        - "{{ plexDatabase }}/Cache"
+
