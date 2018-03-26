@@ -4,8 +4,9 @@
   remote_user: root
   vars:
     plexDatabase: "/var/lib/plexmediaserver/Library/Application Support/Plex Media Server"
-    backupDirectory: "/mnt/wd/plex/backups"
     couchpotatoDB: "/home/couchpotato/.couchpotato"
+    sonarrDB: "/home/nzbdrone/.config/NzbDrone"
+    backupDirectory: "/mnt/wd/plex/backups"
   tasks:
 
   - name: Shut down plexmediaserver
@@ -49,6 +50,26 @@
     tags: couchpotato
 
   - name: Backup couchpotato configs
+    archive:
+      path: "{{ sonarrDB }}"
+      dest: "{{ backupDirectory }}/sonarr-backup.{{ ansible_date_time.epoch }}.tgz"
+      format: gz
+    tags: sonarr
+
+  - name: Start sonarr
+    systemd:
+      name: sonarr
+      state: started
+      enabled: yes
+    tags: sonarr
+
+  - name: Shut down sonarr
+    systemd:
+      name: sonarr
+      state: stopped
+    tags: sonarr
+
+  - name: Backup sonarr configs
     archive:
       path: "{{ couchpotatoDB }}"
       dest: "{{ backupDirectory }}/couchpotato-backup.{{ ansible_date_time.epoch }}.tgz"
