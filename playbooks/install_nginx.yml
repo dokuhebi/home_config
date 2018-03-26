@@ -3,28 +3,22 @@
 - hosts: plex
   remote_user: root
   vars:
-    plexDatabase: "/var/lib/plexmediaserver/Library/Application Support/Plex Media Server"
-    backupDirectory: "/mnt/wd/plex/backups"
-    couchpotatoDB: "/home/couchpotato/.couchpotato"
   tasks:
 
   - name: Shut down plexmediaserver
     systemd:
       name: plexmediaserver
       state: stopped
-    tags: plex
 
   - name: Delete cache data before backup
     file:
       path: "{{ plexDatabase }}/Cache"
       state: absent
-    tags: plex
 
   - name: Delete crash reports before backup
     file:
       path: "{{ plexDatabase }}/Crash Reports"
       state: absent
-    tags: plex
 
   - name: backup plex database
     archive:
@@ -33,32 +27,11 @@
       format: gz
 #      exclude_path:
 #        - "{{ plexDatabase }}Cache"
-    tags: plex
 
   - name: Start plexmediaserver
     systemd:
       name: plexmediaserver
       state: started
       enabled: yes
-    tags: plex
 
-  - name: Shut down couchpotato
-    systemd:
-      name: couchpotato
-      state: stopped
-    tags: couchpotato
-
-  - name: Backup couchpotato configs
-    archive:
-      path: "{{ couchpotatoDB }}"
-      dest: "{{ backupDirectory }}/couchpotato-backup.{{ ansible_date_time.epoch }}.tgz"
-      format: gz
-    tags: couchpotato
-
-  - name: Start couchpotato
-    systemd:
-      name: couchpotato
-      state: started
-      enabled: yes
-    tags: couchpotato
 

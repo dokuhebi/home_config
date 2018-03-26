@@ -5,4 +5,5 @@
   roles:
   - ansible-role-sonarr
   - ansible-role-plexmediaserver
-
+  - ansible-role-nginx-plex
+  - ansible-role-couchpotato
