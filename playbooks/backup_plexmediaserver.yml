@@ -6,6 +6,7 @@
     plexDatabase: "/var/lib/plexmediaserver/Library/Application Support/Plex Media Server"
     couchpotatoDB: "/home/couchpotato/.couchpotato"
     sonarrDB: "/home/nzbdrone/.config/NzbDrone"
+    tautulliDB: "/opt/plexpy/"
     backupDirectory: "/mnt/wd/plex/backups"
   tasks:
 
@@ -43,13 +44,18 @@
       enabled: yes
     tags: plex
 
-  - name: Shut down couchpotato
-    systemd:
-      name: couchpotato
-      state: stopped
-    tags: couchpotato
+  - name: Wait for plex to start
+    wait_for:
+      port: 32400
+      delay: 5
 
-  - name: Backup couchpotato configs
+  - name: Shut down sonarr
+    systemd:
+      name: sonarr
+      state: stopped
+    tags: sonarr
+
+  - name: Backup sonarr configs
     archive:
       path: "{{ sonarrDB }}"
       dest: "{{ backupDirectory }}/sonarr-backup.{{ ansible_date_time.epoch }}.tgz"
@@ -63,13 +69,13 @@
       enabled: yes
     tags: sonarr
 
-  - name: Shut down sonarr
+  - name: Shut down couchpotato
     systemd:
-      name: sonarr
+      name: couchpotato
       state: stopped
     tags: sonarr
 
-  - name: Backup sonarr configs
+  - name: Backup couchpotato configs
     archive:
       path: "{{ couchpotatoDB }}"
       dest: "{{ backupDirectory }}/couchpotato-backup.{{ ansible_date_time.epoch }}.tgz"
@@ -82,4 +88,24 @@
       state: started
       enabled: yes
     tags: couchpotato
+
+  - name: Shut down tautulli
+    systemd:
+      name: plexpy
+      state: stopped
+    tags: tautulli
+
+  - name: Backup tautulli configs
+    archive:
+      path: "{{ tautulliDB }}"
+      dest: "{{ backupDirectory }}/tautulli-backup.{{ ansible_date_time.epoch }}.tgz"
+      format: gz
+    tags: tautulli
+
+  - name: Start tautulli
+    systemd:
+      name: plexpy
+      state: started
+      enabled: yes
+    tags: tautulli
 

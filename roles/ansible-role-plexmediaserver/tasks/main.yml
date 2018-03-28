@@ -24,4 +24,9 @@
     enabled: 'yes'
   when: process_results.stdout == ""
 
+- name: Wait for server to start
+  wait_for: 
+    port: 32400
+    delay: 5
+
 - meta: flush_handlers
