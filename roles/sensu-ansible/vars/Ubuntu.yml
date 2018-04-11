@@ -1,0 +1,7 @@
+---
+# vars/Ubuntu.yml: Variables for Ubuntu
+# Defaults are defined in defaults/main.yml
+
+# redis server properties
+redis_pkg_name: redis-server
+redis_service_name: redis-server
