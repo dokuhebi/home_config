@@ -1,0 +1,8 @@
+---
+
+- hosts: icinga
+  remote_user: root
+  vars:
+
+  roles:
+  - ansible-role-icinga

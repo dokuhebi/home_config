@@ -6,7 +6,7 @@
 
 - name: Enable nginx service
   systemd:
-    name: sonarr
+    name: nginx
     daemon_reload: yes
     enabled: yes
 

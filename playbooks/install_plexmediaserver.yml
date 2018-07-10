@@ -2,6 +2,8 @@
 
 - hosts: plex
   remote_user: root
+  vars:
+    plex_server_version: '1.13.2.5154-fd05be322'
   roles:
   - ansible-role-sonarr
   - ansible-role-plexmediaserver
