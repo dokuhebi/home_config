@@ -5,8 +5,4 @@
   vars:
     plex_server_version: '1.13.5.5291-6fa5e50a8'
   roles:
-  - ansible-role-sonarr
-  - ansible-role-plexmediaserver
-  - ansible-role-nginx-plex
-  - ansible-role-couchpotato
   - ansible-role-ombi

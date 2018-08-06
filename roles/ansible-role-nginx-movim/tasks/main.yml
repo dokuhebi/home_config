@@ -1,0 +1,17 @@
+---
+
+- name: Install nginx
+  apt:
+    name: nginx
+
+- name: Enable nginx service
+  systemd:
+    name: sonarr
+    daemon_reload: yes
+    enabled: yes
+
+- name: Install the nginx config file
+  template:
+    src: default.j2
+    dest: /etc/nginx/sites-available/default
+  notify: restart nginx

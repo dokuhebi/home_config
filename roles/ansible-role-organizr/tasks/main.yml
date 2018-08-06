@@ -1,0 +1,17 @@
+---
+
+- name: Install git
+  package:
+    name: git
+    state: present
+
+- name: Make sure install folder exists
+  file:
+    path: "{{ organizr_install_dir }}"
+    state: directory
+    mode: 0755  
+
+- name: Pull from Organizr repo
+  git:
+    repo: "https://github.com/elmerfdz/OrganizrInstaller"
+    dest: "{{ organizr_install_dir }}"
