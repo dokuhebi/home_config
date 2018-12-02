@@ -1,0 +1,11 @@
+---
+
+- hosts: zabbix
+  remote_user: root
+  vars:
+    install_db: true
+  roles:
+  - ansible-role-apache
+  - ansible-role-webtatic-php
+  - ansible-role-mariadb-centos
+  - ansible-role-zabbix

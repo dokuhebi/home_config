@@ -1,0 +1,14 @@
+---
+
+- name: Create zabbix db
+  mysql_db:
+    name: zabbix
+    state: present
+#    target: /usr/share/doc/zabbix-server-mysql-4.0.0/create.sql.gz
+
+- name: Create zabbix user
+  mysql_user:
+    name: zabbix
+    host: localhost
+    priv: '*.*:ALL'
+    password: 'gateway2'

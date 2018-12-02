@@ -1,0 +1,13 @@
+---
+
+- name: Copy Unsupported webtools to plugins
+  copy:
+    src: "{{ role_path }}/files/WebTools.bundle/"
+    dest: "/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Plug-ins/WebTools.bundle"
+  notify: Restart Plex Media Server    
+
+- name: Copy TraktTV to plugins
+  copy:
+    src: "{{ role_path }}/files/Trakttv.bundle"
+    dest: "/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Plug-ins/Trakttv.bundle"
+  notify: Restart Plex Media Server    

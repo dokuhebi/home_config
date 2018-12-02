@@ -1,0 +1,14 @@
+---
+- name: Set up Bind
+  hosts: dns
+  gather_facts: true
+  become: true
+  vars:
+    records:
+      plex:  {forward: 192.168.1.201, type: A, last: 201, rev: plex.glamdring.local.}
+      jump:  {forward: 192.168.1.200, type: A, last: 200, rev: jump.glamdring.local.}
+      ipa:   {forward: 192.168.1.235, type: A, last: 235, rev: ipa.glamdring.local.}
+      aiden: {forward: 192.168.1.208, type: A, last: 208, rev: aiden.glamdring.local.}
+
+  roles:
+    - ansible-role-bind

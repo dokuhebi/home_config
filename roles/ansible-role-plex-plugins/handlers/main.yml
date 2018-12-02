@@ -1,0 +1,6 @@
+---
+
+- name: Restart Plex Media Server
+  service:
+    name: plexmediaserver
+    state: restarted

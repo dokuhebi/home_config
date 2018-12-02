@@ -1,0 +1,7 @@
+---
+
+- include: zabbix.yml
+
+- include: db.yml
+
+- include: firewall.yml
