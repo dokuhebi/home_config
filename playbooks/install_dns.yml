@@ -1,0 +1,64 @@
+---
+#
+# Documentation at https://github.com/bertvv/ansible-dnsmasq
+# 
+- name: Set up Bind
+  hosts: dns
+  gather_facts: true
+  become: true
+  vars:
+    hosts_entries:
+      - name: plex.glamdring.local
+        ip: 192.168.1.201
+        aliases:  
+          - plex
+      - name: jump.glamdring.local
+        ip: 192.168.1.200
+        aliases: 
+          - jump
+      - name: ipvanish.glamdring.local
+        ip: 192.168.1.206
+        aliases: 
+          - ipvanish
+      - name: aiden.glamdring.local
+        ip: 192.168.1.208
+        aliases: 
+          - aiden
+      - name: dns.glamdring.local
+        ip: 192.168.1.236
+        aliases: 
+          - dns
+      - name: project.glamdring.local
+        ip: 192.168.1.209
+        aliases: 
+          - project
+      - name: ipa.glamdring.local
+        ip: 192.168.1.210
+        aliases: 
+          - ipa
+       
+    dnsmasq_upstream_servers:
+      - 192.168.1.1
+    dnsmasq_option_router: 192.168.1.1
+    dnsmasq_authoritative: true
+    dnsmasq_domain: glamdring.local
+    dnsmasq_dhcp_ranges:
+      - start_addr: '192.168.1.50'
+        end_addr: '192.168.1.99'
+        lease_time: '8h'
+  pre_tasks:
+    - name: Enable dhcp firewall
+      firewalld:
+        port: 67/udp
+        state: enabled
+        immediate: yes
+        permanent: yes
+      
+  roles:
+    - ansible-role-hosts
+    - ansible-dnsmasq
+  post_tasks:
+    - name: Restart dnsmasq
+      service:
+        name: dnsmasq
+        state: restarted

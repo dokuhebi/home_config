@@ -1,0 +1,8 @@
+---
+
+- name: Icinga hosts configuration
+  template:
+    src: etc/icinga2/conf.d/hosts.j2
+    dest: etc/icinga2/conf.d/hosts
+    backup: yes
+  notify: restart icinga2

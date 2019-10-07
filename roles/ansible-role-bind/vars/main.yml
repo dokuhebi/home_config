@@ -1,0 +1,5 @@
+---
+# vars file for Bind setup
+domain: glamdring.local
+
+rev_domain: 1.168.192.in-addr.arpa

@@ -1,0 +1,71 @@
+---
+
+- name: Install epel
+  yum:
+    name:  epel-release
+    state: present
+
+- name: Add Webtatic repo
+  yum:
+    name: https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+    state: present
+
+- name: install webtatic php 
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - mod_php72w 
+    - php72w-cli 
+    - php72w-common 
+    - php72w-devel 
+    - php72w-pear 
+    - php72w-gd 
+    - php72w-mbstring 
+    - php72w-mysql 
+    - php72w-xml 
+    - php72w-bcmath
+
+# PHP.INI Configurations
+
+- name: PHP.INI Max Execution
+  lineinfile:
+    path: "/etc/php.ini"
+    regexp: '^max_execution_time '
+    line: 'max_execution_time = 600'
+  notify: restart httpd
+
+- name: PHP.INI Max Input
+  lineinfile:
+    path: "/etc/php.ini"
+    regexp: '^max_input_time '
+    line: 'max_input_time = 600'
+  notify: restart httpd
+
+- name: PHP.INI Memory Limit
+  lineinfile:
+    path: "/etc/php.ini"
+    regexp: '^memory_limit '
+    line: 'memory_limit = 256M'
+  notify: restart httpd
+
+- name: PHP.INI Post Max Size
+  lineinfile:
+    path: "/etc/php.ini"
+    regexp: '^post_max_size '
+    line: 'post_max_size = 16M'
+  notify: restart httpd
+
+- name: PHP.INI Upload Max Filesize
+  lineinfile:
+    path: "/etc/php.ini"
+    regexp: '^upload_max_filesize '
+    line: 'upload_max_filesize = 32M'
+  notify: restart httpd
+
+- name: PHP.INI Timezone
+  lineinfile:
+    path: "/etc/php.ini"
+    regexp: '^date.timezone '
+    line: 'date.timezone = America/New_York'
+  notify: restart httpd

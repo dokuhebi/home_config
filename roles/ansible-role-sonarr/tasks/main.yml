@@ -1,0 +1,43 @@
+---
+
+- name: Install the Sonarr apt key
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: FDA5DFFC
+    state: present
+
+- name: Add Sonarr apt repo
+  apt_repository:
+    repo: deb http://apt.sonarr.tv/ master main
+    state: present
+
+- name: Install Sonarr (nzbdrone)
+  apt:
+    name: nzbdrone
+
+- name: Verify nzbdrone user 
+  user:
+    name: nzbdrone
+    shell: /bin/bash
+    home: /home/nzbdrone
+    state: present
+
+- name: Verify nzbdrone group
+  group:
+    name: nzbdrone
+    state: present
+
+- name: Install sonarr service file
+  template:
+    src: sonarr.service.j2
+    dest: /etc/systemd/system/sonarr.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Enable sonarr service
+  systemd:
+    name: sonarr
+    daemon_reload: yes
+    state: started
+    enabled: yes

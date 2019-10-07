@@ -1,0 +1,41 @@
+---
+
+- name: Install CouchPotato from git
+  git:
+    repo: "https://github.com/CouchPotato/CouchPotatoServer.git"
+    dest: "/var/www/CouchPotatoServer"
+    
+- name: Verify couchpotato user
+  user:
+    name: 'couchpotato' 
+    shell: /bin/bash
+    home: /home/couchpotato
+    state: present
+
+- name: Verify couchpotato group
+  group:
+    name: couchpotato
+    state: present
+
+- name: Verify ownership of couchpotato dir
+  file:
+    path: "/var/www/CouchPotatoServer"
+    recurse: yes
+    state: directory
+    owner: couchpotato
+    group: couchpotato
+
+- name: Install CouchPotato service file
+  template:
+    src: couchpotato.service.j2
+    dest: /etc/systemd/system/couchpotato.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Enable couchpotato service
+  systemd:
+    name: couchpotato
+    daemon_reload: yes
+    state: started
+    enabled: yes

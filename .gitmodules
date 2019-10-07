@@ -1,0 +1,6 @@
+[submodule "roles/roles/ansible-role-mariadb"]
+	path = roles/roles/ansible-role-mariadb
+	url = https://github.com/tschifftner/ansible-role-mariadb.git
+[submodule "roles/ansible-minecraft"]
+	path = roles/ansible-minecraft
+	url = https://github.com/devops-coop/ansible-minecraft.git

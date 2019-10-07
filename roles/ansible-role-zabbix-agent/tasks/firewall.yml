@@ -1,0 +1,22 @@
+---
+
+- name: Enable web access (http)
+  firewalld:
+    service: http
+    permanent: true
+    state: enabled
+    immediate: true
+
+- name: Enable web access (https)
+  firewalld:
+    service: https
+    permanent: true
+    state: enabled
+    immediate: true
+
+- name: Enable agent access
+  firewalld:
+    port: 10050-10051/tcp
+    permanent: true
+    state: enabled
+    immediate: true

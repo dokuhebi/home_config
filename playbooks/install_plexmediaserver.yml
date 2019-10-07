@@ -1,0 +1,15 @@
+---
+
+- hosts: plex
+  remote_user: root
+  vars:
+#    plex_server_version: '1.17.0.1709-982421575'
+    plex_server_version: '1.17.0.1841-d42cfa161'
+
+  roles:
+  - ansible-role-sonarr
+  - ansible-role-plexmediaserver
+  - ansible-role-nginx-plex
+#  - ansible-role-couchpotato
+  - ansible-role-ombi
+  - ansible-role-plex-plugins
