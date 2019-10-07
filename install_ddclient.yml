@@ -1,0 +1,8 @@
+---
+
+- hosts: plex
+  
+  roles:
+    
+  - ansible-role-dyndns
+    

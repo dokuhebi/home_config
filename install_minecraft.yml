@@ -1,0 +1,10 @@
+---
+
+- hosts: minecraft
+  remote_user: root
+  vars:
+    minecraft_version: latest
+    minecraft_max_memory: 8192M
+    minecraft_initial_memory: 8192M
+  roles:
+  - ansible-minecraft
