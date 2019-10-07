@@ -1,0 +1,33 @@
+---
+
+- name: Install ddclient
+  package:
+    name: ddclient
+    state: present
+
+# Need to vault this
+
+#- name: Install ddclient config
+#  template:
+#    src:   ddclient.conf.j2
+#    dest:  /etc/ddclient.conf 
+#    mode:  0600
+#    owner: root
+#    group: root
+
+- name: Install ddclient service
+  template:
+    src:   ddclient.service.j2
+    dest:  /etc/systemd/system/ddclient.service
+    mode:  0644
+    owner: root
+    group: root
+  notify: daemon-reload
+
+- name: Enable ddclient service
+  service:
+    name: ddclient
+    enabled: true
+    state: started
+    
+   
