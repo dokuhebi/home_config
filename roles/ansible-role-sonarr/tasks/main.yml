@@ -1,5 +1,10 @@
 ---
 
+- name: Make sure aptitute is installed
+  apt:
+    name: aptitude
+    state: present
+
 - name: Install the Sonarr apt key
   apt_key:
     keyserver: keyserver.ubuntu.com
