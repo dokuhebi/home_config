@@ -14,5 +14,5 @@
 - name: Ensure Ombi is installed
   apt:
     name: "ombi"
-    state: "present"
+    state: "latest"
 
