@@ -19,6 +19,7 @@
 - name: Install Sonarr (nzbdrone)
   apt:
     name: nzbdrone
+    state: latest
 
 - name: Verify nzbdrone user 
   user:
