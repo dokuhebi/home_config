@@ -109,3 +109,14 @@
       enabled: yes
     tags: tautulli
 
+  - name: Find backups older than a month
+    find:
+      paths: "{{ backupDirectory }}"
+      age: 1m
+    register: files_to_delete
+
+  - name: Remove files older than a month
+    file:
+      path: "{{ item.path }}"
+      state: absent
+    with_items: "{{ files_to_delete.files }}"

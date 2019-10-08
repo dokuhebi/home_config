@@ -1,8 +1,0 @@
----
-
-- hosts: plex
-  remote_user: root
-  vars:
-    plex_server_version: '1.13.5.5291-6fa5e50a8'
-  roles:
-  - ansible-role-ombi
