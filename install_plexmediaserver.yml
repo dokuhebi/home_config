@@ -4,7 +4,8 @@
   remote_user: root
   vars:
 #    plex_server_version: '1.17.0.1709-982421575'
-    plex_server_version: '1.17.0.1841-d42cfa161'
+#    plex_server_version: '1.17.0.1841-d42cfa161'
+    plex_server_version: '1.18.0.1913-e5cc93306'
 
   roles:
   - ansible-role-sonarr
